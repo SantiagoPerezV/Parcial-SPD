@@ -1,0 +1,170 @@
+#define a 12
+#define b 13
+#define c 5
+#define d 6
+#define e 7
+#define f 11
+#define g 10
+
+#define aumento 4
+#define decremento 3
+#define reset 2
+
+#define decena A2
+#define unidad A1
+
+void setup()
+{
+  pinMode(a, OUTPUT);
+  pinMode(b, OUTPUT);
+  pinMode(c, OUTPUT);
+  pinMode(d, OUTPUT);
+  pinMode(e, OUTPUT);
+  pinMode(f, OUTPUT);
+  pinMode(g, OUTPUT);
+  
+  pinMode(unidad, OUTPUT);
+  pinMode(decena, OUTPUT);
+  
+  pinMode(aumento, INPUT_PULLUP);
+  pinMode(decremento, INPUT_PULLUP);
+  pinMode(reset, INPUT_PULLUP);
+}
+
+int aumento_antes = 1;
+int decremento_antes = 1;
+int reset_antes = 1;
+int unidades = 0;
+int decenas = 0;
+  
+void loop()
+{
+//efecto anti-rebote en pulsadores
+  int lectura_aumento = digitalRead(aumento);
+  int lectura_decremento = digitalRead(decremento);
+  int lectura_reset = digitalRead(reset);
+
+  if (lectura_aumento == 0 && aumento_antes == 1){
+   unidades++;
+  }
+  if (lectura_decremento == 0 && decremento_antes == 1){
+    unidades --;
+  }
+  if (lectura_reset == 0 && reset_antes == 1){
+   unidades = 0;
+   decenas = 0;
+  }
+  
+  aumento_antes = lectura_aumento;
+  decremento_antes = lectura_decremento;
+  reset_antes = lectura_reset;
+  
+//Condicionales del contador
+  if (unidades > 9){
+    unidades = 0;
+    decenas ++;
+  }
+    if (decenas > 9){
+    decenas = 0;
+    unidades = 0;
+  }
+  Multiplexacion();
+
+}
+//Funciones
+void Multiplexacion (){
+    ApagarDisplay();
+    digitalWrite(decena, HIGH);
+    digitalWrite(unidad, LOW);
+    MostrarNumero(decenas);
+    delay(10);
+  
+    ApagarDisplay();
+    digitalWrite(decena, LOW);
+    digitalWrite(unidad, HIGH);
+    MostrarNumero(unidades);
+    delay(10);
+}
+
+void ApagarDisplay(){
+  digitalWrite(a, HIGH); 
+  digitalWrite(b, HIGH); 
+  digitalWrite(c, HIGH); 
+  digitalWrite(d, HIGH); 
+  digitalWrite(e, HIGH); 
+  digitalWrite(f, HIGH); 
+  digitalWrite(g, HIGH);
+}
+void MostrarNumero(int numero){
+  switch (numero){
+    case 0:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        digitalWrite(f, LOW); 
+        break;
+   case 1: 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW);
+        break;
+    case 2:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(g, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        break;
+    case 3:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(g, LOW);
+        break;
+    case 4:
+        digitalWrite(g, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(f, LOW); 
+        break;
+    case 5:
+        digitalWrite(a, LOW); 
+        digitalWrite(g, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW);
+        digitalWrite(f, LOW); 
+        break;
+    case 6: 
+        digitalWrite(g, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        digitalWrite(f, LOW);
+        digitalWrite(a, LOW); 
+        break;
+    case 7:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW);
+        break;
+    case 8:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        digitalWrite(f, LOW); 
+        digitalWrite(g, LOW);
+        break;
+    case 9:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(g, LOW); 
+        digitalWrite(f, LOW); 
+        break;
+  }
+}
