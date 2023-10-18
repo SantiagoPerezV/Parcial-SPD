@@ -9,12 +9,12 @@ Multiplexación:
  Para que funcionen los dos o más a la vez, se debe hacer un código en específico. La función consiste en prender un display y apagar el otro, mostrar el número que corresponde a ese dígito, poner un delay de 10 milisegundos; prender el apagado y apagar el prendido, mostrar el número que corresponde a ese display y de nuevo el delay.
 
 Variables:
-  Tengo 5 variables inicializadas antes del loop, todas son tipo de dato entero. Tres son el valor anterior de los pulsadores, igualadas a 1 (luego se usará para el anti-rebote). Y las otras dos son unidades y decenas, que como su nombre indican serán el valor de la unidad en el contador y de la decena.
+  Tengo 4 variables inicializadas antes del loop, todas son tipo de dato entero. Tres son el valor anterior de los pulsadores, igualadas a 1 (luego se usará para el anti-rebote). Y la otra es del contador, que como su nombre indica es el valor del contador.
 
 Funciones:
 	apagarDisplay(): esta función no lleva parámetros ni retorno; lo que hace es apagar todos los segmentos del display; nos servirá después a la hora de reiniciar los segmentos del display.
 	mostrarNumero(): esta función no tiene retorno; por parámetro se le asigna un número; según el número registrado en parámetros, se lleva a cabo un switch, en el que el número en caso de ser de 0 a 9, prende segmentos del display para que se forma tal dígito.
-	Multiplexacion(): esta función no tiene retorno ni parámetro; lo que hace esta función es básicamente la multiplexación, prende el display de la decena, apaga los segmentos, uso la función mostrarNumero(decena) osea que muestra el valor de decena en el display y da un delay de 10 segundos; luego hace lo mismo pero prendiendo el display de unidad y muestra las unidades.
+	Multiplexacion(): esta función no tiene retorno ni parámetro; lo que hace esta función es básicamente la multiplexación, prende el display de la decena, apaga los segmentos, uso la función mostrarNumero(contador / 10) que representa el valor de la decena y da un delay de 10 segundos; luego hace lo mismo pero prendiendo el display de unidad, mostrarNumero(contador % 10). Esto muestra las unidades.
 
 Loop:
-  En el loop se desarrolla el efecto anti rebote para los 3 pulsadores. Luego dos condicionales: en los que si la variable unidades es mayor a 9, decenas aumenta y unidades vuelve a 0; y el otro si decenas es mayor a 9, unidades y decenas son iguales a 0. Finalmente llamo a la función Multiplexación ya explicada anteriormente.
+  En el loop se desarrolla el efecto anti rebote para los 3 pulsadores. Luego dos condicionales: si contador es menor a 0, contador es igual a 99, y la otra si contador es mayor a 99, contador es igual a 0; esto para que muestre solo numeros del 0 al 99. Finalmente llamo a la función Multiplexación ya explicada anteriormente.
