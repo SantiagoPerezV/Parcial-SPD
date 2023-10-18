@@ -34,8 +34,7 @@ void setup()
 int aumento_antes = 1;
 int decremento_antes = 1;
 int reset_antes = 1;
-int unidades = 0;
-int decenas = 0;
+int contador = 0;
   
 void loop()
 {
@@ -45,14 +44,13 @@ void loop()
   int lectura_reset = digitalRead(reset);
 
   if (lectura_aumento == 0 && aumento_antes == 1){
-   unidades++;
+    contador++;
   }
   if (lectura_decremento == 0 && decremento_antes == 1){
-    unidades --;
+    contador --;
   }
   if (lectura_reset == 0 && reset_antes == 1){
-   unidades = 0;
-   decenas = 0;
+   contador = 0;
   }
   
   aumento_antes = lectura_aumento;
@@ -60,13 +58,11 @@ void loop()
   reset_antes = lectura_reset;
   
 //Condicionales del contador
-  if (unidades > 9){
-    unidades = 0;
-    decenas ++;
+  if (contador < 0){
+   contador = 99;
   }
-    if (decenas > 9){
-    decenas = 0;
-    unidades = 0;
+  if (contador > 99){
+    contador = 0;
   }
   Multiplexacion();
 
@@ -76,13 +72,13 @@ void Multiplexacion (){
     ApagarDisplay();
     digitalWrite(decena, HIGH);
     digitalWrite(unidad, LOW);
-    MostrarNumero(decenas);
+    MostrarNumero(contador / 10);
     delay(10);
   
     ApagarDisplay();
     digitalWrite(decena, LOW);
     digitalWrite(unidad, HIGH);
-    MostrarNumero(unidades);
+    MostrarNumero(contador % 10);
     delay(10);
 }
 
