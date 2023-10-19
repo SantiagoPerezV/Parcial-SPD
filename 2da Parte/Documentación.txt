@@ -16,3 +16,15 @@ Primo(): No recibe nada por parámetro; retorna un booleano; su función valga l
  Tiene dos variables: una tipo entero llamada veces_divisible inicializada en 0 que será las veces en las que el número es divisible entre números del 1 al 99 (valores del contador); y la otra tipo booleano inicializada en false que será el retorno final. 
  Al valor de contador lo divido del 1 al 99 en un for; si el resto da 0 veces_divisible suma 1; sino sigue con el próximo iterable.
  Luego pregunto si veces_divisible es igual a 2, que el retorno sea true (solo es divisible 2 veces, es primo); sino el retorno sigue siendo false.
+
+Entradas analógicas (Sensor de temperatura):
+ Tiene 3 pines a conectar; el primero a 5v, voult a algún pin del arduino y tierra a gnd.
+ El sensor entrega tensión que equivale a una temperatura. Esa tensión debemos transformarla a valor numérico de temperatura. Muestra de -40°C a 125°C.
+ -40°C = 100mV. 
+ 125°C = 1750mV
+ A partir de 100mV, cada 10 mV suma 1°C. Hasta llegar a 1750mV.
+ temperatura_leida = analogRead(A0); #Acá mide la temperatura en un valor entero, 100mV significa 20 en analogRead(). La cuenta es XmV/4.88…mV. 
+ Mínimo = 100mV / 4.88…mV = 20 y el máximo = 1750mV / 4.88…mV = 358Mv.
+Función map(): Hace la cuenta para calcular la temperatura por nosotros. Tiene 5 parámetros.
+.Map(variable, mínimo valor que toma la variable, máximo valor que toma la variable, mínimo valor que representa el mínimo de la variable, máximo valor que representa el máximo de la variable)
+En el caso de la temperatura sería .map(temperatura_leida, 20, 358, -40, 125);
