@@ -14,6 +14,8 @@
 
 #define sw A3
 
+#define sensor A0
+
 void setup()
 {
   pinMode(a, OUTPUT);
@@ -39,6 +41,7 @@ int contador = 0;
 void loop()
 {
   int lectura_switch = digitalRead(sw); 
+  SensorFuncional();
 
   if (lectura_switch == 1){
     //efecto anti-rebote en pulsadores
@@ -69,6 +72,7 @@ void loop()
     int lectura_decremento = digitalRead(decremento);
 
     if (lectura_aumento == 0 && aumento_antes == 1){
+      //sumar contador hasta que encuentre un primo
       contador++;
       while(Primo() == false){
         contador++;
@@ -94,6 +98,12 @@ void loop()
   }
 }
 //Funciones
+
+void SensorFuncional(){
+  int lectura_sensor = analogRead(sensor);
+  int temperatura = map(lectura_sensor, 20, 358, -40, 125); 
+  int miliVoltios = 5 * lectura_sensor;
+}
 
 bool Primo(){
   int veces_divisible = 0;
