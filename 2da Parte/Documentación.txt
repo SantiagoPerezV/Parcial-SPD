@@ -1,0 +1,18 @@
+Parte 2: Modificación con Interruptor Deslizante y Números Primos
+
+Objetivo: Dependiendo de la posición del interruptor, el display debe mostrar o bien el contador (como en la Parte 1) o los números primos en el rango de 0 a 99.
+
+Componentes agregados:
+- Sustituimos el pulsador de reset por un interruptor deslizante(switch).
+
+Switch:
+Los interruptores deslizantes se utilizan para controlar el flujo de corriente en un circuito y se suelen utilizar para un dispositivo deslizante mecánico que conecta y desconecta una corriente, deslizando entre un estado de apertura y cierre. En este caso, lo utilizamos para realizar una sentencia (mostrar solo número primos) u  otra (mostrar contador común).
+Aunque se comportan de manera muy similar a los interruptores de botón pulsador, los interruptores deslizantes tienen una forma táctil más evidente, que permite al usuario diferenciar de manera más segura entre los estados de encendido y apagado.
+La terminal a se conecta a gnd, el común se conecta a un pin y el ultimo a 5v.
+Luego como un pulsador, se lee digitalRead(switch). Tiene dos valores enteros. 0 si está de un lado y 1 si está del otro
+
+Funciones agregadas:
+Primo(): No recibe nada por parámetro; retorna un booleano; su función valga la redundancia es devolver false si el número del contador no es primo, y si lo es, devuelve true. 
+ Tiene dos variables: una tipo entero llamada veces_divisible inicializada en 0 que será las veces en las que el número es divisible entre números del 1 al 99 (valores del contador); y la otra tipo booleano inicializada en false que será el retorno final. 
+ Al valor de contador lo divido del 1 al 99 en un for; si el resto da 0 veces_divisible suma 1; sino sigue con el próximo iterable.
+ Luego pregunto si veces_divisible es igual a 2, que el retorno sea true (solo es divisible 2 veces, es primo); sino el retorno sigue siendo false.

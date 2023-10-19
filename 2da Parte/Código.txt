@@ -110,16 +110,6 @@ bool Primo(){
   return bandera_primo;
 }
 
-void Limites(){
-  //Condicionales del contador
-  if (contador < 0){
-    contador = 99;
-  }
-  if (contador > 99){
-    contador = 0;
-  }
-}
-
 void Multiplexacion (){
     ApagarDisplay();
     digitalWrite(decena, HIGH);
