@@ -1,0 +1,219 @@
+#define a 12
+#define b 13
+#define c 5
+#define d 6
+#define e 7
+#define f 11
+#define g 10
+
+#define aumento 4
+#define decremento 3
+
+#define decena A2
+#define unidad A1
+
+#define sw A3
+
+void setup()
+{
+  pinMode(a, OUTPUT);
+  pinMode(b, OUTPUT);
+  pinMode(c, OUTPUT);
+  pinMode(d, OUTPUT);
+  pinMode(e, OUTPUT);
+  pinMode(f, OUTPUT);
+  pinMode(g, OUTPUT);
+  
+  pinMode(unidad, OUTPUT);
+  pinMode(decena, OUTPUT);
+  
+  pinMode(aumento, INPUT_PULLUP);
+  pinMode(decremento, INPUT_PULLUP);
+  Serial.begin(9600);
+}
+
+int aumento_antes = 1;
+int decremento_antes = 1;
+int contador = 0;
+
+void loop()
+{
+  int lectura_switch = digitalRead(sw); 
+
+  if (lectura_switch == 1){
+    //efecto anti-rebote en pulsadores
+    int lectura_aumento = digitalRead(aumento);
+    int lectura_decremento = digitalRead(decremento);
+
+    if (lectura_aumento == 0 && aumento_antes == 1){
+      contador++;
+    }
+    if (lectura_decremento == 0 && decremento_antes == 1){
+      contador --;
+    }
+
+    aumento_antes = lectura_aumento;
+    decremento_antes = lectura_decremento;
+    
+    if (contador < 0){
+      contador = 99;
+    }
+    if (contador > 99){
+      contador = 0;
+    }
+    
+    Multiplexacion();
+  }else{
+    //efecto anti-rebote en pulsadores
+    int lectura_aumento = digitalRead(aumento);
+    int lectura_decremento = digitalRead(decremento);
+
+    if (lectura_aumento == 0 && aumento_antes == 1){
+      contador++;
+      while(Primo() == false){
+        contador++;
+      }
+    }
+    if (lectura_decremento == 0 && decremento_antes == 1){
+      //restar contador hasta que encuentre un primo
+      contador--;
+      while(Primo() == false){
+      contador--;
+      }
+    }
+
+    aumento_antes = lectura_aumento;
+    decremento_antes = lectura_decremento;
+    if (contador < 0){
+      contador = 97;
+    }
+    if (contador > 99){
+      contador = 0;
+    }
+    Multiplexacion();
+  }
+}
+//Funciones
+
+bool Primo(){
+  int veces_divisible = 0;
+  bool bandera_primo = false;
+  for (int i = 1; i < 99; i++){
+    if (contador % i == 0) {
+  	  veces_divisible ++;
+    }
+  }
+  if (veces_divisible == 2){
+    Multiplexacion();
+    bandera_primo = true;
+  }
+  return bandera_primo;
+}
+
+void Limites(){
+  //Condicionales del contador
+  if (contador < 0){
+    contador = 99;
+  }
+  if (contador > 99){
+    contador = 0;
+  }
+}
+
+void Multiplexacion (){
+    ApagarDisplay();
+    digitalWrite(decena, HIGH);
+    digitalWrite(unidad, LOW);
+    MostrarNumero(contador / 10);
+    delay(10);
+  
+    ApagarDisplay();
+    digitalWrite(decena, LOW);
+    digitalWrite(unidad, HIGH);
+    MostrarNumero(contador % 10);
+    delay(10);
+}
+
+void ApagarDisplay(){
+  digitalWrite(a, HIGH); 
+  digitalWrite(b, HIGH); 
+  digitalWrite(c, HIGH); 
+  digitalWrite(d, HIGH); 
+  digitalWrite(e, HIGH); 
+  digitalWrite(f, HIGH); 
+  digitalWrite(g, HIGH);
+}
+
+void MostrarNumero(int numero){
+  switch (numero){
+    case 0:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        digitalWrite(f, LOW); 
+        break;
+   case 1: 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW);
+        break;
+    case 2:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(g, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        break;
+    case 3:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(g, LOW);
+        break;
+    case 4:
+        digitalWrite(g, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(f, LOW); 
+        break;
+    case 5:
+        digitalWrite(a, LOW); 
+        digitalWrite(g, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW);
+        digitalWrite(f, LOW); 
+        break;
+    case 6: 
+        digitalWrite(g, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        digitalWrite(f, LOW);
+        digitalWrite(a, LOW); 
+        break;
+    case 7:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW);
+        break;
+    case 8:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(e, LOW); 
+        digitalWrite(f, LOW); 
+        digitalWrite(g, LOW);
+        break;
+    case 9:
+        digitalWrite(a, LOW); 
+        digitalWrite(b, LOW); 
+        digitalWrite(c, LOW); 
+        digitalWrite(d, LOW); 
+        digitalWrite(g, LOW); 
+        digitalWrite(f, LOW); 
+        break;
+  }
+}
