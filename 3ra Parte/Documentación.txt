@@ -1,0 +1,15 @@
+3er parcial:
+Deberás implementar a tu proyecto la fotoresistencia que afecte el funcionamiento del proyecto.
+
+Describe en detalle qué hace este nuevo componente y cómo se integra en el proyecto.
+Fotorresistencia: Componente cuya resistencia varía sensiblemente con la cantidad de luz percibida. Se utiliza ampliamente para medir la iluminación en dispositivos electrónicos.
+ Tiene 3 conexiones, desde una terminal se conecta a 5v. Y desde la otra se conecta a gnd junto con una resistencia de 10 Kohm y se conecta a cualquier pin.
+ Su lectura devuelve numero del 54 al 974. Aunque sube exponencialmente su valor hasta el 900 aprox.
+Su comportamiento es el siguiente:
+Mas luz = menor resistencia eléctrica
+Menos luz = mayor resistencia eléctrica
+
+En este caso, reemplacé la función que tenía el switch por la de la fotoresistencia. Si su lectura es mayor a 915 cuenta con números primos; caso contrario el contador suma y resta de a 1.
+
+Segun nuestro numero final de dni tenemos que realizar tal consigna: en base vamos a tener las demas partes
+enviar tinkercad, gdb y si llegamos el github junto con los demas repositorios
