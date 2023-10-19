@@ -32,3 +32,7 @@ Entradas analógicas (Sensor de temperatura):
 Función map(): Hace la cuenta para calcular la temperatura por nosotros. Tiene 5 parámetros.
 .Map(variable, mínimo valor que toma la variable, máximo valor que toma la variable, mínimo valor que representa el mínimo de la variable, máximo valor que representa el máximo de la variable)
 En el caso de la temperatura sería .map(temperatura_leida, 20, 358, -40, 125);
+
+Motor de C.C:
+ Un motor de corriente continua es una máquina que convierte energía eléctrica en mecánica, provocando un movimiento rotatorio, gracias a la acción de un campo magnético.
+ La terminal positiva va conectada a algún pin y la terminal negativa a gnd.
